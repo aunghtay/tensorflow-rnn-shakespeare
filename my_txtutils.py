@@ -166,11 +166,11 @@ def print_learning_learned_comparison(X, Y, losses, bookranges, batch_loss, batc
     # ┴ \u2534
     # ┌ \u250C
     # ┐ \u2510
-    format_string = "└{:─^" + str(len(epoch_string)) + "}"
-    format_string += "{:─^" + str(len(formatted_bookname)) + "}"
-    format_string += "┴{:─^" + str(len(decx) + 2) + "}"
-    format_string += "┴{:─^" + str(len(decy) + 2) + "}"
-    format_string += "┴{:─^" + str(len(loss_string)) + "}┘"
+    format_string = "└{:-^" + str(len(epoch_string)) + "}"
+    format_string += "{:-^" + str(len(formatted_bookname)) + "}"
+    format_string += "┴{:-^" + str(len(decx) + 2) + "}"
+    format_string += "┴{:-^" + str(len(decy) + 2) + "}"
+    format_string += "┴{:-^" + str(len(loss_string)) + "}┘"
     footer = format_string.format('INDEX', 'BOOK NAME', 'TRAINING SEQUENCE', 'PREDICTED SEQUENCE', 'LOSS')
     print(footer)
     # print statistics
@@ -224,7 +224,9 @@ class Progress:
             for x in range(maxi):
                 k = 0
                 while d >= 0:
-                    print('=', end="", flush=True)
+                    # print('=', end="", flush=True)
+                    print '='
+                    sys.stdout.flush()
                     k += 1
                     d -= dx
                 d += dy
@@ -244,7 +246,8 @@ def read_data_files(directory, validation=True):
     """
     codetext = []
     bookranges = []
-    shakelist = glob.glob(directory, recursive=True)
+    #shakelist = glob.glob(directory, recursive=True)
+    shakelist = glob.glob(directory)
     for shakefile in shakelist:
         shaketext = open(shakefile, "r")
         print("Loading file " + shakefile)
@@ -309,7 +312,9 @@ def print_validation_header(validation_start, bookranges):
         books += bookranges[i]["name"]
         if i < len(bookranges)-1:
             books += ", "
-    print("{: <60}".format("Validating on " + books), flush=True)
+    #print("{: <60}".format("Validating on " + books), flush=True)
+    print "{: <60}".format("Validating on " + books)
+    sys.stdout.flush()
 
 
 def print_validation_stats(loss, accuracy):
@@ -319,12 +324,12 @@ def print_validation_stats(loss, accuracy):
 
 def print_text_generation_header():
     print()
-    print("┌{:─^111}┐".format('Generating random text from learned state'))
+    print("┌{:-^111}┐".format('Generating random text from learned state'))
 
 
 def print_text_generation_footer():
     print()
-    print("└{:─^111}┘".format('End of generation'))
+    print("└{:-^111}┘".format('End of generation'))
 
 
 def frequency_limiter(n, multiple=1, modulo=0):

@@ -2,3 +2,4 @@ __pycache__
 log
 checkpoints
 *.zip
+*.py[cod]
