@@ -133,6 +133,7 @@ init = tf.global_variables_initializer()
 sess = tf.Session()
 sess.run(init)
 step = 0
+summary_writer.add_graph(sess.graph)
 
 # training loop
 for x, y_, epoch in txt.rnn_minibatch_sequencer(codetext, BATCHSIZE, SEQLEN, nb_epochs=10):
